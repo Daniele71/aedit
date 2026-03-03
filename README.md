@@ -3,12 +3,15 @@ A python script useful for creating report about Ardour sessions. Mainly for lis
 It can also remove plugins from ardour session file. This features is more for testing/debugging broken plugins
 so you don't have to load a session in Safe Mode to remove broken plugins.
 
+Keep in mind that I'm not a developer, just a guy who occasionally dabbles with Python and other things.
+No AI, just a bit of spaghetti :)
+
 ### USAGE:
 
 
 
 
-### REQUIREMENTS
+### REQUIREMENTS:
 Python =<3.9
-Operative systemç any with Python.
+Probably any Operative System any with Python.
 Tested only on Linux (openSUSE TW) and Windows 10
