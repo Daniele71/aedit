@@ -10,4 +10,5 @@ so you don't have to load a session in Safe Mode to remove broken plugins.
 
 ### REQUIREMENTS
 Python =<3.9
-
+Operative systemç any with Python.
+Tested only on Linux (openSUSE TW) and Windows 10
