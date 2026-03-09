@@ -8,7 +8,9 @@ No AI, just a bit of spaghetti :)
 
 
 ### INSTALLATION:
-It's just a script...
+It's just a script...\
+On linux you can put it somewhere in your path (EG /usr/local/bin)\
+or just invoke the script with ./aedit.py
 
 
 ### USAGE:
@@ -16,5 +18,5 @@ It's just a script...
 
 ### REQUIREMENTS:
 Python =<3.9\
-Probably any Operative System any with Python.\
-Tested only on Linux (openSUSE TW) and Windows 10\
+Probably any Operative System with Python.\
+Tested only on Linux (openSUSE TW) and Windows 10
