@@ -21,7 +21,7 @@ With a file loaded, you can save a report, list/remove plugins and **REWRITE** t
 Plugins are divided by track.\
 Original file will be saved as *.save\
 You can also review the changes before saving.\
-There's no UNDO system. In doubt, quit without rewriting the session file!\
+There's no UNDO system. In doubt, quit without rewriting the session file!
 
 **Arguments:**\
 -f/--file: /path/to/*.ardour file
@@ -45,12 +45,22 @@ For some sort of privacy, hide the full path of yours projects/files.\
 Only the file name or session dir name will be shown.\
 Valid for screen and reports.\
 
+![Multiple reports](Screenshots/session_scan.jpg)
+In this screenshot, multiple reports with error handling.\
+"Failed" because missing write permission.\
+"Skipped" may happen when session file is not valid, readable or does not match\
+the pattern project_dir/project.ardour (Eg: mysong/mysong.ardour)
+
+
+![Single report](Screenshots/session_scan_s.jpg)
+Here with single report
+
 
 ### BUGS:
 Hopefully not too many ;)\
 Text alignment and justification are hardcoded.\
 So with a very long path or with a very long track name,\
-there could be some ugliness, sorry. It will be addressed in feature release.\
+there could be some ugliness, sorry. It will be addressed in feature release.
 
 
 ### REQUIREMENTS:
