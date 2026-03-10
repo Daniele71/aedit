@@ -362,7 +362,7 @@ class sessionParser():
             menu += self.__colorize(' (!)', 'grey')+'\n'
             menu += "v) View changes ("+str(len(self.removed))+')\n'
         else:
-             menu += self.__colorize("w) Rewrite session file", 'grey')+'\n'
+             menu += self.__colorize("w) re-Write session file", 'grey')+'\n'
              menu += self.__colorize("v) View changes", 'grey')+'\n'
         #menu += '\n'
         menu += "s) Save to text file\n"
