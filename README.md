@@ -1,7 +1,7 @@
 # aedit.py
-A python script useful for creating report about Ardour sessions. Mainly for listing plugin.\
-It can also remove plugins from ardour session file. This features is more for testing/debugging\
-broken plugins so you don't have to load a session in Safe Mode to remove broken plugins.
+A python script useful for creating reports about Ardour sessions. Mainly for listing plugin.\
+It can also remove plugins from ardour session file. This features is <ins>primarily for testing/debugging\
+broken plugins</ins> so you don't have to load a session in Safe Mode to remove these plugins.\
 
 Keep in mind that I'm not a developer, just a guy who occasionally dabbles with Python and other things.\
 No AI, just a bit of spaghetti :)
