@@ -1,4 +1,5 @@
 # aedit.py
+![loaded file](Screenshots/file_loaded.jpg)
 A python script useful for creating reports about Ardour sessions. Mainly for listing plugin.\
 It can also remove plugins from ardour session file. This features is <ins>primarily for testing/debugging\
 broken plugins</ins> so you don't have to load a session in Safe Mode to remove these plugins.\
