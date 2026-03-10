@@ -137,10 +137,10 @@ class sessionParser():
                         # single file
                         if self.args.save:
                             content += self.__prepareReport()
-                            print(self.__colorize('OK!', 'green'))
+                            print(self.__colorize('Ok!', 'green'))
                             self.__setAndResetAll()
                         else:
-                            print(self.__colorize('OK!', 'green'))
+                            print(self.__colorize('Ok!', 'green'))
                             if not self.__saveToTextFile():
                                 self.parsed_error +=1
                             print('')
@@ -182,7 +182,7 @@ class sessionParser():
         # return
         if self.__fileWrite(rfile, content):
             sleep(0.5)
-            print(self.__colorize("OK!", 'green'))
+            print(self.__colorize("Ok!", 'green'))
             sleep(0.5)
         else:
             print(self.__colorize("FAILED!", 'red'))
@@ -358,18 +358,18 @@ class sessionParser():
     def __printMenu(self):
         menu = self.__boldfier('\033[04m\nEDIT ACTIONS:\033[0m\n')
         if self.removed:
-            menu += "r) Rewrite session file"
+            menu += "w) re-Write session file"
             menu += self.__colorize(' (!)', 'grey')+'\n'
             menu += "v) View changes ("+str(len(self.removed))+')\n'
         else:
-             menu += self.__colorize("r) Rewrite session file", 'grey')+'\n'
+             menu += self.__colorize("w) Rewrite session file", 'grey')+'\n'
              menu += self.__colorize("v) View changes", 'grey')+'\n'
         #menu += '\n'
         menu += "s) Save to text file\n"
         if self.total_plugins == 0:    
-            menu += self.__colorize("d) Delete plugin\n", 'grey')
+            menu += self.__colorize("r) Remove plugin\n", 'grey')
         else:
-             menu += "d) Delete plugin\n"
+             menu += "r) Remove plugin\n"
         menu += "m) Main Menu\n"
         menu += "q) Quit\n"
         print(menu)
@@ -379,9 +379,9 @@ class sessionParser():
             sleep(0.5)
         elif sel == 'q':
             self.__confirmExit()
-        elif sel == 'd':
-            self.__pluginMenu()
         elif sel == 'r':
+            self.__pluginMenu()
+        elif sel == 'w':
             if not self.__dumpSessionFile():
                 self.__printError()
         elif sel == 'm':
@@ -413,7 +413,7 @@ class sessionParser():
         menu = '\nWellcome to '+self.name+' '+self.version+' - '+self.__today()+'\n\n'
         menu += self.__boldfier('\033[04mMAIN ACTIONS:\033[0m\n')
         menu += "f) Load *.ardour file\n"
-        menu += "s) Sessions Report (multiple file)\n"
+        menu += "s) Sessions Report (multiple files)\n"
         menu += "d) Sessions Report (single file)\n"
         # loaded file ?
         if not self.afile:
@@ -523,7 +523,7 @@ class sessionParser():
         elif self.total_plugins == 1:
             text +='1): '
         else:
-            print("There's no plugin !")
+            print("There's no plugins !")
             sleep(1.0)
             self.__printMenu()
             return
@@ -578,10 +578,10 @@ class sessionParser():
         data = content = 'Report created with '+self.name+' '+self.version+' - '+self.__today()+'\n'
         data += self.__prepareReport()
         if self.__fileWrite(rfile, data):    
-            print(self.__colorize("OK!", 'green'))
+            print(self.__colorize("Ok!", 'green'))
             return True
         else:
-            print(self.__colorize("FAILED!", 'red'))
+            print(self.__colorize("Failed!", 'red'))
             print(self.__colorize('['+self.writeerror+']', 'grey'))
         return False
 
