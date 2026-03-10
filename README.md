@@ -22,25 +22,25 @@ Original file will be saved as *.save\
 You can also review the changes before saving.\
 There's no UNDO system. In doubt, quit without rewriting the session file!\
 
-**Arguments:**
--f/--file: /path/to/*.ardour file\
+**Arguments:**\
+-f/--file: /path/to/*.ardour file
 
-load *.ardour file.\
+load *.ardour file.
 
--d/--dir: /path/to/your sessions_dir\
+-d/--dir: /path/to/your sessions_dir
 
 scan session dir and create a report for each project.\
-Existing report will be overwritten.\
+Existing report will be overwritten.
 
 
--s/--save: save report.\
+-s/--save: save report.
 
 In conjunction with -f save a report for that project.\
-In conjunction with -d save a **single** report for all your projects ,inside your sessions dir.\
+In conjunction with -d save a **single** report for all your projects, inside your sessions dir.
 
--n/--nopath:\
+-n/--nopath:
 
-for some sort of privacy, hide the full path of yours projects/files.\
+For some sort of privacy, hide the full path of yours projects/files.\
 Only the file name or session dir name will be shown.\
 Valid for screen and reports.\
 
