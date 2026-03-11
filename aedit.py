@@ -286,7 +286,7 @@ class sessionParser():
     # and wait a bit
     def __printError(self):
         print(self.__colorize(self.__boldfier('# ERRROR ! : '), 'red')+self.errormsg)
-        sleep(0.5)
+        sleep(0.6)
 
 
      # format stringa
@@ -431,7 +431,7 @@ class sessionParser():
             if not str(o).lower() == '':
                 self.args.file = o
                 self.__parseSessionFile()
-             else:
+            else:
                 self.errormsg = "Enter a file name"
                 self.__printError()
         elif sel == 'q':
@@ -442,7 +442,7 @@ class sessionParser():
                 self.args.dir = o
                 self.args.save = False
                 self.__parseSessionsDir()
-             else:
+            else:
                 self.errormsg = "Invalid Option"
                 self.__printError()
         elif sel == 'd':
