@@ -8,13 +8,13 @@ Keep in mind that I'm not a developer, just a guy who occasionally dabbles with 
 No AI, just a bit of spaghetti :)
 
 
-### INSTALLATION:
+## INSTALLATION:
 It's just a script...\
 On linux you can put it somewhere in your path (EG /usr/local/bin)\
 or just run the script with ./aedit.py
 
 
-### USAGE:
+## USAGE:
 **Run the script with no arguments:**\
 you can load a session file  (*.ardour)\
 With a file loaded, you can save a report, list/remove plugins and **REWRITE** the session file.\
@@ -56,7 +56,7 @@ the pattern project_dir/project.ardour (Eg: mysong/mysong.ardour)
 Here with single report
 
 
-### BUGS:
+## BUGS:
 Hopefully not too many ;)\
 Text alignment and justification are hardcoded.\
 So with a very long path or with a very long track name,\
