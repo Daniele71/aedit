@@ -24,6 +24,8 @@ You can also review the changes before saving.\
 There's no UNDO system. In doubt, quit without rewriting the session file!
 
 **Arguments:**\
+-i/--info: show basic system info
+
 -f/--file: /path/to/*.ardour file
 
 load *.ardour file.
@@ -55,6 +57,8 @@ the pattern project_dir/project.ardour (Eg: mysong/mysong.ardour)
 ![Single report](Screenshots/session_scan_s.jpg)
 Here with single report
 
+
+(Some screenshots may not be updated to the latest version)
 
 ## BUGS:
 Hopefully not too many ;)\

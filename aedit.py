@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
 # aedit.py
+# https://github.com/Daniele71/aedit
+#
 # script for creating report about
 # Ardour sessions (session info, used plugins)
 # It can also remove plugin. ONLY FOR TESTING BROKEN PLUGIN !!!!
@@ -42,6 +44,7 @@ class sessionParser():
         self.aparser.add_argument("-s", '--save', action='store_true', help="Save a text report/Mutliple report with -d")
         self.aparser.add_argument("-n", '--nopath', action='store_true', help="Hide path for privacy")
         self.aparser.add_argument("-d", '--dir', default=None, help="Ardour sessions dir")
+        self.aparser.add_argument("-i", '--info', action='store_true', help="Show some system info")
         self.args, self.wronghargs = self.aparser.parse_known_args()
         if self.wronghargs:
             self.errormsg = 'Invalid option '+str(self.wronghargs)
@@ -56,13 +59,17 @@ class sessionParser():
             self.__parseSessionsDir()
             # remove ?
             sys.exit()
+        # info
+        if self.args.info:
+            print(self.__infoText())
+            sys.exit(0)
         # no options
         self.__mainMenu()
 
 
     # remove path for privacy
-    def __noPath(self, path=None):
-        if self.args.nopath:
+    def __noPath(self, path, force = False):
+        if self.args.nopath or force:
             return os.path.basename(path)
         return path
     
@@ -422,8 +429,9 @@ class sessionParser():
         if not self.afile:
             menu += self.__colorize("e) Edit Ardour file\n", 'grey')
         else:
-            menu += "e) Edit Ardour file\n"
+            menu += "e) Edit Ardour file ("+self.__colorize(self.__noPath(self.afile, True), 'grey')+")\n"
         menu += "q) Quit\n"
+        menu += 'i) Info'
         print(menu)
         sel = input("Enter option: ")
         if sel == 'f':
@@ -462,11 +470,24 @@ class sessionParser():
             else:
                 self.printAll()
                 self.__printMenu()
+        elif sel == 'i':
+            print(self.__infoText())
+            sleep(0.5)
         else:
             self.errormsg = 'Invalid option\n'
             self.__printError()
         self.__mainMenu()
 
+
+    # print some info
+    def __infoText(self):
+        text = self.__boldfier('\033[04m\nSYSTEM INFO:\033[0m\n')
+        text += 'Program: '+self.name+' - '+self.version+'\n'
+        text += 'OS: '+sys.platform+'\n'
+        text += 'Pyhton: '+str(sys.version_info.major)+'.'+str(sys.version_info.major)+'.'+str(sys.version_info.micro)+'\n'
+        text += 'Project page: https://github.com/Daniele71/aedit\n'
+        text += '-'*50
+        return text
 
     # confirm exit, if needed
     def __confirmExit(self):
@@ -598,6 +619,8 @@ class sessionParser():
             print(self.__colorize("Failed!", 'red'))
             print(self.__colorize('['+self.writeerror+']', 'grey'))
         return False
+
+
 
 
 # RUN
