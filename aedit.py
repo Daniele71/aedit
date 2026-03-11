@@ -46,6 +46,8 @@ class sessionParser():
         if self.wronghargs:
             self.errormsg = 'Invalid option '+str(self.wronghargs)
             self.__printError()
+            self.aparser.print_usage()
+            sys.exit(1)
         # parse arguments: -f takes precedence:
         if self.args.file:
             self.__parseSessionFile()
@@ -90,8 +92,9 @@ class sessionParser():
             print(os.path.abspath(self.afile))
             self.errormsg = "Invalid file"
             self.__printError()
+            self.__mainMenu()
             ##
-            sys.exit()
+            #sys.exit()
         # parse session file
         if not self.__parseArdourFile(self.afile):
             self.__printError()
@@ -425,21 +428,32 @@ class sessionParser():
         sel = input("Enter option: ")
         if sel == 'f':
             o = input('File: ')
-            self.args.file = o
-            self.__parseSessionFile()
+            if not str(o).lower() == '':
+                self.args.file = o
+                self.__parseSessionFile()
+             else:
+                self.errormsg = "Enter a file name"
+                self.__printError()
         elif sel == 'q':
             self.__confirmExit()
-            # sys.exit()
         elif sel == 's':
             o = input('Sessions Dir: ')
-            self.args.dir = o
-            self.args.save = False
-            self.__parseSessionsDir()
+            if not str(o).lower() == '':
+                self.args.dir = o
+                self.args.save = False
+                self.__parseSessionsDir()
+             else:
+                self.errormsg = "Invalid Option"
+                self.__printError()
         elif sel == 'd':
             o = input('Sessions Dir: ')
-            self.args.dir = o
-            self.args.save = True
-            self.__parseSessionsDir()
+            if not str(o).lower() == '':
+                self.args.dir = o
+                self.args.save = True
+                self.__parseSessionsDir()
+            else:
+                self.errormsg = "Invalid Option"
+                self.__printError()
         elif sel == 'e':
             if not self.afile:
                 print('No Ardour file loaded')
