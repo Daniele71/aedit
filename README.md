@@ -64,10 +64,15 @@ Here with single report
 Hopefully not too many ;)\
 Text alignment and justification are hardcoded.\
 So with a very long path or with a very long track name,\
-there could be some ugliness, sorry. It will be addressed in feature release.
+there could be some ugliness, sorry. It will be addressed in feature releases.
 
 
-### REQUIREMENTS:
+## REQUIREMENTS:
 Python >= 3.9 (maybe 3.8, Not sure 'cause I'm on Python 3.13)\
 Probably any Operative System with Python.\
 Tested only on Linux (openSUSE TW) and Windows 10
+
+
+## PERFORMANCE:
+Here on openSUSE TW, with a Ryzen 5700x - 16Mb RAM - ssd\
+less then 4 sec for parsing 80 Sessions.
