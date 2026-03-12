@@ -14,7 +14,7 @@ import xml.etree.ElementTree as etree
 import sys
 import argparse
 import os
-from time import sleep
+from time import sleep, time
 from datetime import datetime
 import locale
 from shutil import copy2
@@ -96,8 +96,8 @@ class sessionParser():
         self.afile = os.path.abspath(self.args.file)
         # is a valid file ?
         if not os.path.isfile(self.afile):
-            print(os.path.abspath(self.afile))
-            self.errormsg = "Invalid file"
+            print('\n-> ', self.__noPath(os.path.abspath(self.afile)))
+            self.errormsg = "Not a file..."
             self.__printError()
             self.__mainMenu()
         # parse session file
@@ -120,8 +120,8 @@ class sessionParser():
         self.wdir = os.path.abspath(self.args.dir)
         # is a valid dir ?
         if not os.path.isdir(self.wdir):
-            print(self.wdir)
-            self.errormsg = "Invalid Dir"
+            print('\n-> ', self.__noPath(self.wdir))
+            self.errormsg = "Not a Dir. Wrong Path ?"
             self.__printError()
             sys.exit()
         path = os.path.abspath(self.wdir)
