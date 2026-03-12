@@ -100,8 +100,6 @@ class sessionParser():
             self.errormsg = "Invalid file"
             self.__printError()
             self.__mainMenu()
-            ##
-            #sys.exit()
         # parse session file
         if not self.__parseArdourFile(self.afile):
             self.__printError()
@@ -117,6 +115,7 @@ class sessionParser():
 
     # parse Sessions dir
     def __parseSessionsDir(self):
+        tstart = time()
         content = ''
         self.wdir = os.path.abspath(self.args.dir)
         # is a valid dir ?
@@ -167,7 +166,10 @@ class sessionParser():
                     print(self.__colorize('[Missing/Invalid file]', 'grey'), '\n')
                     self.parsed_error +=1
                     sleep(0.8)
-        print('\nCompleted!')
+        # how faster are we ?
+        # we add 0.02  'cause file write happens later ;)
+        tend = "%.3fs" % (time() - (tstart+0.02))
+        print('\nCompleted!', self.__colorize('('+tend+')', 'grey'))
         if content:
             #print('Saving full report\n')
             self.__writeReport(path, content)
@@ -177,7 +179,7 @@ class sessionParser():
 
     # scan results
     def __scanResults(self):
-        res = 'Parsed: '+ str(self.parsed_count-self.parsed_error)+ ' Error: '+ str(self.parsed_error)+ ' Skipped: '+ str(self.parsed_skipped)+ '\n'
+        res = 'Parsed Sessions: '+str(self.parsed_count)+'  Good: '+ str(self.parsed_count-self.parsed_error)+'  Error: '+ str(self.parsed_error)+ '  Skipped: '+ str(self.parsed_skipped)+ '\n'
         return res + '-'*108+'\n'
 
 
@@ -191,9 +193,9 @@ class sessionParser():
         content += self.__scanResults()+data
         # return
         if self.__fileWrite(rfile, content):
-            sleep(0.5)
+            sleep(0.4)
             print(self.__colorize("Ok!", 'green'))
-            sleep(0.5)
+            sleep(0.4)
         else:
             print(self.__colorize("FAILED!", 'red'))
             print(self.__colorize(self.writeerror, 'grey'))
@@ -293,7 +295,7 @@ class sessionParser():
     # and wait a bit
     def __printError(self):
         print(self.__colorize(self.__boldfier('# ERRROR ! : '), 'red')+self.errormsg)
-        sleep(0.6)
+        sleep(0.5)
 
 
      # format stringa
