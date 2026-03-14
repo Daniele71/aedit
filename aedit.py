@@ -61,7 +61,7 @@ class sessionParser():
             sys.exit()
         # info
         if self.args.info:
-            print(self.__infoText())
+            print(self.__sysInfoText())
             sys.exit(0)
         # no options
         self.__mainMenu()
@@ -249,6 +249,7 @@ class sessionParser():
         for child in self.eroot:
             for ee in child.findall('Route'):
                 tr = self.__boldfier(self.__colorize(ee.attrib['name'], 'blue'))
+                self.tracks_count += 1
                 dt = ' | '+self.__colorize(ee.attrib['default-type'], 'grey')+'\n'
                 self.plugins_list += '\n'+tr+dt
                 for pr in ee.findall('Processor'):
@@ -282,7 +283,7 @@ class sessionParser():
         self.plugins_store = {}
         self.plugins_list = ''
         self.nlv2 = self.nvst2 = self.nvst3 = self.nlxvst = self.nlua = self.nclap = 0
-
+        self.tracks_count = 0
 
     # add plugin to list
     def __addPluginToList(self, pname, ptype):
@@ -309,6 +310,7 @@ class sessionParser():
         recapinfo += self.__formatString(' Session:', 20)+self.session_name+'\n'
         recapinfo += self.__formatString(' Version:', 20)+self.session_version+'\n'
         recapinfo += self.__formatString(' Sample Rate:', 20)+str(self.session_sr)+" hz\n"
+        recapinfo += self.__formatString(' Tracks:', 20)+str(self.tracks_count)+"\n"
         recapinfo += self.__formatString(" Created with:", 20)+self.created_with+'\n'
         recapinfo += self.__formatString(" Modified with:", 20)+self.modified_with+'\n'
         recapinfo += self.__formatString(' File name:', 20)+self.__noPath(self.afile)+'\n'
@@ -473,7 +475,7 @@ class sessionParser():
                 self.printAll()
                 self.__printMenu()
         elif sel == 'i':
-            print(self.__infoText())
+            print(self.__sysInfoText())
             sleep(0.5)
         else:
             self.errormsg = 'Invalid option\n'
@@ -482,7 +484,7 @@ class sessionParser():
 
 
     # print some info
-    def __infoText(self):
+    def __sysInfoText(self):
         text = self.__boldfier('\033[04m\nSYSTEM INFO:\033[0m\n')
         text += 'Program: '+self.name+' - '+self.version+'\n'
         text += 'OS: '+sys.platform+'\n'
@@ -490,6 +492,7 @@ class sessionParser():
         text += 'Project page: https://github.com/Daniele71/aedit\n'
         text += '-'*50
         return text
+
 
     # confirm exit, if needed
     def __confirmExit(self):
