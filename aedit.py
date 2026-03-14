@@ -180,7 +180,7 @@ class sessionParser():
     # scan results
     def __scanResults(self):
         res = 'Parsed Sessions: '+str(self.parsed_count)+'  Good: '+ str(self.parsed_count-self.parsed_error)+'  Error: '+ str(self.parsed_error)+ '  Skipped: '+ str(self.parsed_skipped)+ '\n'
-        return res + '-'*108+'\n'
+        return res + '-'*98+'\n'
 
 
     ## write single report
@@ -289,7 +289,7 @@ class sessionParser():
     def __addPluginToList(self, pname, ptype):
         num = ' '+str(self.num)+')'
         num = self.__formatString(num, 7)
-        self.plugins_list += self.__formatString(num+pname, 87)+str(ptype)+'\n'
+        self.plugins_list += self.__formatString(num+pname, 93)+str(ptype)+'\n'
 
 
     # print error message
@@ -313,8 +313,8 @@ class sessionParser():
         recapinfo += self.__formatString(' Tracks:', 20)+str(self.tracks_count)+"\n"
         recapinfo += self.__formatString(" Created with:", 20)+self.created_with+'\n'
         recapinfo += self.__formatString(" Modified with:", 20)+self.modified_with+'\n'
-        recapinfo += self.__formatString(' File name:', 20)+self.__noPath(self.afile)+'\n'
-        recapinfo += '-'*92
+        recapinfo += self.__formatString(' Session file:', 20)+self.__noPath(self.afile)+'\n'
+        recapinfo += '-'*98
         return recapinfo
 
 
@@ -328,14 +328,14 @@ class sessionParser():
         recaptext += self.__formatString(' lxvst:', 20)+str(self.nlxvst)+'\n'
         recaptext += self.__formatString(' lua:', 20)+str(self.nlua)+'\n'
         recaptext += self.__formatString(' clap:', 20)+str(self.nclap)+'\n'
-        recaptext += '-'*92
+        recaptext += '-'*98
         return recaptext
 
 
     # prepare plugin list
     def __pluginText(self):
         pltext = self.__boldfier('\nTRACK/PLUGIN LIST:\n')
-        pltext += self.plugins_list+'-'*92+'\n'
+        pltext += self.plugins_list+'-'*98+'\n'
         return pltext
 
 
