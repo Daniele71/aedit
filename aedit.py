@@ -29,7 +29,8 @@ class sessionParser():
         self.version = '1.0.0'
         self.plugins_type = ('vst2', 'vst3', 'luaproc', 'clap', 'lv2', 'lxvst')
         self.__setAndResetAll()
-        self.removed = []
+        self.removed = 0
+        self.deleted_plugins = {}
         self.afile = None
         # damned window
         if sys.platform.lower() == 'win32':
@@ -238,7 +239,8 @@ class sessionParser():
                             print(self.__formatString('\nPlugin n.'+str(num)+' "'+pr.attrib['name']+'": ', 80), end='')
                             ee.remove(pr)
                             sleep(0.3)
-                            self.removed.append(self.__formatString(ee.attrib['name']+':,', 56)+pr.attrib['name'])
+                            self.removed += 1
+                            self.__addRemovedPlugin(ee.attrib['name'], pr.attrib['name'])
                             print(self.__colorize("REMOVED!", 'green'))
                             sleep(0.5)
                             return True
@@ -274,6 +276,14 @@ class sessionParser():
                         elif pr.attrib['type'] == 'clap':
                             self.__addPluginToList(pr.attrib['name'], 'clap')                            
                             self.nclap += 1
+
+
+    # store removed plugin with track name as key
+    def __addRemovedPlugin(self, tname, pname):
+        if tname in self.deleted_plugins:
+            self.deleted_plugins[tname].append(pname)
+        else:
+            self.deleted_plugins[tname] = [pname]
 
 
     # set/reset all vars before (re)scan
@@ -371,10 +381,10 @@ class sessionParser():
     # print menu
     def __printMenu(self):
         menu = self.__boldfier('\033[04m\nEDIT ACTIONS:\033[0m\n')
-        if self.removed:
+        if self.deleted_plugins:
             menu += "w) re-Write session file"
             menu += self.__colorize(' (!)', 'grey')+'\n'
-            menu += "v) View changes ("+str(len(self.removed))+')\n'
+            menu += "v) View changes"+self.__colorize(" ("+str(self.removed)+')', 'grey')+'\n'
         else:
              menu += self.__colorize("w) re-Write session file", 'grey')+'\n'
              menu += self.__colorize("v) View changes", 'grey')+'\n'
@@ -410,11 +420,13 @@ class sessionParser():
 
     # view deleted plugins
     def __viewChanges(self):
-        if self.removed:
-            print('\n'+self.__boldfier('REMOVED PLUGINS:'))
-            for p in self.removed:
-                text = p.split(',')
-                print(self.__colorize(text[0], 'blue'), text[1])
+        #if self.removed:
+        if self.deleted_plugins:
+            print('\n')
+            for k in self.deleted_plugins:
+                print(self.__formatString(self.__colorize(k+':', 'blue'), 56))
+                for v in self.deleted_plugins[k]:
+                    print('- ', v)
             print('-'*92)
         else:
             print("\nThere's no changes !")
@@ -496,8 +508,10 @@ class sessionParser():
 
     # confirm exit, if needed
     def __confirmExit(self):
-        if self.removed:
-            sel = input(str(len(self.removed))+' unsaved changes. Quit anyway ? y/N: ')
+        # if self.removed:
+        if self.deleted_plugins:
+            # sel = input(str(len(self.removed))+' unsaved changes. Quit anyway ? y/N: ')
+            sel = input(str(len(self.deleted_plugins))+' unsaved changes. Quit anyway ? y/N: ')
             sel = str(sel).lower()
             if sel == 'y':
                 sys.exit()
@@ -550,7 +564,8 @@ class sessionParser():
                 return False
             print(self.__colorize('Done!', 'green'))
             sleep(0.5)
-            self.removed = []
+            self.removed = 0
+            self.deleted_plugins = {}
             return True
         self.__printMenu()
 
