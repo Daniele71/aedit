@@ -176,7 +176,11 @@ class sessionParser():
             self.__writeReport(path, content)
         else:
             print(self.__scanResults())
-
+        # clean up
+        self.__setAndResetAll()
+        self.removed = 0
+        self.deleted_plugins = {}
+        self.afile = ''
 
     # scan results
     def __scanResults(self):
