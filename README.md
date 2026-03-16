@@ -44,7 +44,8 @@ In conjunction with -d save a **single** report for all your projects, inside yo
 
 For some sort of privacy, hide the full path of yours projects/files.\
 Only the file name or session dir name will be shown.\
-Valid for screen and reports.\
+Valid for screen and reports.
+
 
 ![Multiple reports](Screenshots/session_scan.jpg)
 In this screenshot, multiple reports with error handling.\
@@ -55,7 +56,6 @@ the pattern project_dir/project.ardour (Eg: mysong/mysong.ardour)
 
 ![Single report](Screenshots/session_scan_s.jpg)
 Here with single report
-
 
 (Some screenshots may not be updated to the latest version)
 
