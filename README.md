@@ -1,5 +1,5 @@
 # aedit.py
-![loaded file](Screenshots/aedit_1.gif)
+![in action](Screenshots/aedit_1.gif)
 A python script useful for creating reports about Ardour sessions. Mainly for listing plugin.\
 It can also remove plugins from ardour session file. This features is <ins>primarily for testing/debugging\
 broken plugins</ins> so you don't have to load a session in Safe Mode to remove these plugins.\
@@ -34,7 +34,6 @@ load *.ardour file.
 
 scan session dir and create a report for each project.\
 Existing report will be overwritten.
-
 
 -s/--save: save report.
 
@@ -75,9 +74,9 @@ Developed and tested on Linux (openSUSE TW) and Windows 10.\
 Also available as exe file created with pyinstaller on Windows 10.\
 It also works on Windows 11 but little tested here.\
 WARNING! Not being certified, windows 11 will block the program from running.\
-So 3 options here:\
-1) Install Python and use the script\
-2) run the exe anyway, despite Windows rants (maybe antivirus software too)\
+So 3 options here:
+1) Install Python and use the script
+2) run the exe anyway, despite Windows rants (maybe antivirus software too)
 3) Do nothing and go out for a walk :)\
 Choose your poison ;)
 
