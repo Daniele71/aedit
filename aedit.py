@@ -176,7 +176,7 @@ class sessionParser():
             self.__writeReport(path, content)
         else:
             print(self.__scanResults())
-        # clean up
+        # clean up and reset
         self.__setAndResetAll()
         self.removed = 0
         self.deleted_plugins = {}
@@ -427,11 +427,12 @@ class sessionParser():
         #if self.removed:
         if self.deleted_plugins:
             print('\n')
+            print(self.__boldfier('\033[04mREMOVED PLUGINS:\033[0m\n'))
             for k in self.deleted_plugins:
                 print(self.__formatString(self.__colorize(k+':', 'blue'), 56))
                 for v in self.deleted_plugins[k]:
                     print('- ', v)
-            print('-'*92)
+            print('-'*98)
         else:
             print("\nThere's no changes !")
             sleep(0.5)
@@ -514,8 +515,7 @@ class sessionParser():
     def __confirmExit(self):
         # if self.removed:
         if self.deleted_plugins:
-            # sel = input(str(len(self.removed))+' unsaved changes. Quit anyway ? y/N: ')
-            sel = input(str(len(self.deleted_plugins))+' unsaved changes. Quit anyway ? y/N: ')
+            sel = input(str(self.removed)+' unsaved changes. Quit anyway ? y/N: ')
             sel = str(sel).lower()
             if sel == 'y':
                 sys.exit()
