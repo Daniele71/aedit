@@ -24,24 +24,24 @@ You can also review the changes before saving.\
 There's no UNDO system. In doubt, quit without rewriting the session file!
 
 **Arguments:**\
--i/--info: show basic system info
+```-i/--info: show basic system info
 
 -f/--file: /path/to/*.ardour file
-
+```
 load *.ardour file.
-
+```
 -d/--dir: /path/to/your sessions_dir
-
+```
 scan session dir and create a report for each project.\
 Existing report will be overwritten.
-
+```
 -s/--save: save report.
-
+```
 In conjunction with -f save a report for that project.\
 In conjunction with -d save a **single** report for all your projects, inside your sessions dir.
-
+```
 -n/--nopath:
-
+```
 For some sort of privacy, hide the full path of yours projects/files.\
 Only the file name or session dir name will be shown.\
 Valid for screen and reports.
@@ -81,9 +81,11 @@ So 3 options here:
 
 Choose your poison ;)
 
-On windows you can check the MD5 hash using 'certutil':\  
+On windows you can check the MD5 hash using 'certutil': 
+```
 C:\> certutil -hashfile aedit.exe MD5\
-MD5 hash available in release page.
+```
+MD5 hash available in the win zip file.
 
 ## PERFORMANCE:
 Here on openSUSE TW, with a Ryzen 5700x - 16Mb RAM - ssd\
