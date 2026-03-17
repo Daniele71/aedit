@@ -77,9 +77,13 @@ WARNING! Not being certified, windows 11 will block the program from running.\
 So 3 options here:
 1) Install Python and use the script
 2) run the exe anyway, despite Windows rants (maybe antivirus software too)
-3) Do nothing and go out for a walk :)\
+3) Do nothing and go out for a walk :)
+
 Choose your poison ;)
 
+On windows you can check the MD5 hash using 'certutil':\  
+C:\> certutil -hashfile aedit.exe MD5\
+MD5 hash available in release page.
 
 ## PERFORMANCE:
 Here on openSUSE TW, with a Ryzen 5700x - 16Mb RAM - ssd\
