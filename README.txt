@@ -58,7 +58,20 @@ there could be some ugliness, sorry. It will be addressed in feature releases.
 ## REQUIREMENTS:
 Python >= 3.9 (maybe 3.8, Not sure 'cause I'm on Python 3.13)
 Probably any Operative System with Python.
-Tested only on Linux (openSUSE TW) and Windows 10
+Developed and tested on Linux (openSUSE TW) and Windows 10.
+Also available as exe file created with pyinstaller on Windows 10.
+It also works on Windows 11 but little tested here.
+WARNING! Not being certified, windows 11 will block the program from running.
+So 3 options here:
+
+1) Install Python and use the script
+2) run the exe anyway, despite Windows rants (maybe antivirus software too)
+3) Do nothing and go out for a walk :)
+Choose your poison ;)
+
+On windows you can check the MD5 hash using 'certutil':\
+C:> certutil -hashfile aedit.exe MD5
+MD5 hash available in release page.
 
 
 ## PERFORMANCE:
