@@ -46,6 +46,7 @@ class sessionParser():
         self.aparser.add_argument("-n", '--nopath', action='store_true', help="Hide path for privacy")
         self.aparser.add_argument("-d", '--dir', default=None, help="Ardour sessions dir")
         self.aparser.add_argument("-i", '--info', action='store_true', help="Show some system info")
+        self.aparser.add_argument("-html", action='store_true', help="Export in html format")
         self.args, self.wronghargs = self.aparser.parse_known_args()
         if self.wronghargs:
             self.errormsg = 'Invalid option '+str(self.wronghargs)
@@ -124,7 +125,8 @@ class sessionParser():
             print('\n-> ', self.__noPath(self.wdir))
             self.errormsg = "Not a Dir. Wrong Path ?"
             self.__printError()
-            sys.exit()
+            return
+            # sys.exit()
         path = os.path.abspath(self.wdir)
         if not os.access(path, os.W_OK):
             print('Session path not readable')
@@ -168,7 +170,7 @@ class sessionParser():
                     self.parsed_error +=1
                     sleep(0.8)
         # how faster are we ?
-        # we add 0.02  'cause file write happens later ;)
+        # we add 0.03  'cause file write happens later ;)
         tend = "%.3fs" % (time() - (tstart+0.02))
         print('\nCompleted!', self.__colorize('('+tend+')', 'grey'))
         if content:
@@ -176,7 +178,7 @@ class sessionParser():
             self.__writeReport(path, content)
         else:
             print(self.__scanResults())
-        # clean up and reset
+        # clean up
         self.__setAndResetAll()
         self.removed = 0
         self.deleted_plugins = {}
@@ -236,10 +238,8 @@ class sessionParser():
             for ee in child.findall('Route'):
                 for pr in ee.findall('Processor'):
                     if pr.attrib['type'] in self.plugins_type:
-                        # print(pr.attrib['name'])
                         # remove plugin with this id
                         if pr.attrib['id'] == self.plugins_store[num]:
-                            # print(pr.attrib['name'])
                             print(self.__formatString('\nPlugin n.'+str(num)+' "'+pr.attrib['name']+'": ', 80), end='')
                             ee.remove(pr)
                             sleep(0.3)
@@ -254,32 +254,40 @@ class sessionParser():
     def __createPluginsList(self):
         for child in self.eroot:
             for ee in child.findall('Route'):
-                tr = self.__boldfier(self.__colorize(ee.attrib['name'], 'blue'))
                 self.tracks_count += 1
-                dt = ' | '+self.__colorize(ee.attrib['default-type'], 'grey')+'\n'
-                self.plugins_list += '\n'+tr+dt
+                tt = ee.attrib['name']+','+ee.attrib['default-type']
                 for pr in ee.findall('Processor'):
                     if pr.attrib['type'] in self.plugins_type:
                         self.num += 1
                         self.plugins_store[self.num] = pr.attrib['id']
                         if pr.attrib['type'] == 'lv2':
-                            self.__addPluginToList(pr.attrib['name'], 'lv2')
+                            self.__addPluginToList(tt, pr.attrib['name'], 'lv2')
                             self.nlv2 += 1
                         elif pr.attrib['type'] == 'vst2':
-                            self.__addPluginToList(pr.attrib['name'], 'vst2')
+                            self.__addPluginToList(tt, pr.attrib['name'], 'vst2',)
                             self.nvst2 += 1
                         elif pr.attrib['type'] == 'vst3':
-                            self.__addPluginToList(pr.attrib['name'], 'vst3')
+                            self.__addPluginToList(tt, pr.attrib['name'], 'vst3')
                             self.nvst3 += 1
                         elif pr.attrib['type'] == 'lxvst':
-                            self.__addPluginToList(pr.attrib['name'], 'lxvst')                            
+                            self.__addPluginToList(tt, pr.attrib['name'], 'lxvst')
                             self.nlxvst += 1
                         elif pr.attrib['type'] == 'luaproc':
-                            self.__addPluginToList(pr.attrib['name'], 'lua')                            
+                            self.__addPluginToList(tt, pr.attrib['name'], 'lua')
                             self.nlua += 1
                         elif pr.attrib['type'] == 'clap':
-                            self.__addPluginToList(pr.attrib['name'], 'clap')                            
+                            self.__addPluginToList(tt, pr.attrib['name'], 'clap')
                             self.nclap += 1
+
+
+
+    # add plugin to list dict
+    def __addPluginToList(self, tname, pname, ptype):
+        if tname in self.plugins_list:
+            self.plugins_list[tname].extend([(self.num, pname, ptype)])
+        else:
+            self.plugins_list[tname] = [(self.num, pname, ptype)]
+
 
 
     # store removed plugin with track name as key
@@ -295,16 +303,9 @@ class sessionParser():
         self.num = 0
         self.total_plugins = 0
         self.plugins_store = {}
-        self.plugins_list = ''
+        self.plugins_list = {}
         self.nlv2 = self.nvst2 = self.nvst3 = self.nlxvst = self.nlua = self.nclap = 0
         self.tracks_count = 0
-
-    # add plugin to list
-    def __addPluginToList(self, pname, ptype):
-        num = ' '+str(self.num)+')'
-        num = self.__formatString(num, 7)
-        self.plugins_list += self.__formatString(num+pname, 93)+str(ptype)+'\n'
-
 
     # print error message
     # and wait a bit
@@ -349,7 +350,14 @@ class sessionParser():
     # prepare plugin list
     def __pluginText(self):
         pltext = self.__boldfier('\nTRACK/PLUGIN LIST:\n')
-        pltext += self.plugins_list+'-'*98+'\n'
+        for k in self.plugins_list:
+            s = k.split(',')
+            pltext += self.__boldfier('\n'+self.__colorize(s[0], 'blue'))
+            pltext += ' | '+self.__colorize(s[1], 'grey')+'\n'
+            for v in self.plugins_list[k]:
+                n = self.__formatString(' '+str(v[0])+')', 7)
+                pltext += self.__formatString(n+v[1], 93)+v[2]+'\n'
+        pltext += '-'*98+'\n'
         return pltext
 
 
@@ -515,6 +523,7 @@ class sessionParser():
     def __confirmExit(self):
         # if self.removed:
         if self.deleted_plugins:
+            # sel = input(str(len(self.removed))+' unsaved changes. Quit anyway ? y/N: ')
             sel = input(str(self.removed)+' unsaved changes. Quit anyway ? y/N: ')
             sel = str(sel).lower()
             if sel == 'y':
@@ -630,6 +639,7 @@ class sessionParser():
 
     # save to a text file:
     def __saveToTextFile(self):
+
         fname = self.session_name+'.txt'
         rfile = os.path.join(os.path.dirname(os.path.abspath(self.afile)), fname)
         print(self.__formatString('Saving to: '+str(self.__noPath(rfile)), 105),end='')
