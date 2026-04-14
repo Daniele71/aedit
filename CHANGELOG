@@ -1,0 +1,15 @@
+aedit - 2.0.0
+* Added support for regions and regions FX
+* Added html export
+* html default format for report
+* Added "-text" option, for plain text report
+* Added "-verbose" option for visualization and text report
+* Added class mdict. Internally used for storing tracks, plugins, regions and regions FX
+* Menu options for changing "verbosity" and "html/text" format
+* Some refactoring
+
+
+aedit - 1.0.0
+* first public release
+
+
