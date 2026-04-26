@@ -9,6 +9,7 @@ Report can be in html (default since aedit 2.0) or plain text.\
 Keep in mind that I'm not a developer, just a guy who occasionally dabbles with Python and other things.\
 No AI, just a bit of spaghetti :)
 
+![html report](Screenshots/html_full_report.jpg)
 
 ## INSTALLATION:
 It's just a script...\
