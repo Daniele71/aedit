@@ -4,6 +4,8 @@ A python script useful for creating reports about Ardour sessions. Mainly for li
 It can also remove plugins from ardour session file. This features is <ins>primarily for testing/debugging\
 broken plugins</ins> so you don't have to load a session in Safe Mode to remove these plugins.\
 
+Report can be in html (default since aedit 2.0) or plain text.\
+
 Keep in mind that I'm not a developer, just a guy who occasionally dabbles with Python and other things.\
 No AI, just a bit of spaghetti :)
 
@@ -12,6 +14,8 @@ No AI, just a bit of spaghetti :)
 It's just a script...\
 On linux you can put it somewhere in your path (EG /usr/local/bin)\
 or just run the script with ./aedit.py after a chmod +x aedit.py.\
+On Windows, if python script are already associated with another program, use
+```python aedit.py```
 
 
 ## USAGE:
@@ -23,29 +27,43 @@ Original file will be saved as *.save\
 You can also review the changes before saving.\
 There's no UNDO system. In doubt, quit without rewriting the session file!
 
-**Arguments:**\
-```-i/--info: show basic system info
+**Arguments:**
+```-i --info: show basic system info
 
--f/--file: /path/to/*.ardour file
+-f --file: /path/to/*.ardour file
 ```
 load *.ardour file.
+
 ```
--d/--dir: /path/to/your sessions_dir
+-d --dir: /path/to/your sessions_dir
 ```
 scan session dir and create a report for each project.\
 Existing report will be overwritten.
+
 ```
--s/--save: save report.
+-s --save: save report.
 ```
 In conjunction with -f save a report for that project.\
 In conjunction with -d save a **single** report for all your projects, inside your sessions dir.
+
 ```
--n/--nopath:
+-text
+```
+Set plain text as export format
+
+```
+-n --nopath:
 ```
 For some sort of privacy, hide the full path of yours projects/files.\
 Only the file name or session dir name will be shown.\
 Valid for screen and reports.
 
+```
+-verbose
+```
+This option is for TEXT reports and visualization.\
+Since version 2.0 aedit supports regions and regions FX, so the output cab be very, very long.\
+So, by default, ONLY regions with FX are showed. You can also set verbosity from main menu.
 
 ![Multiple reports](Screenshots/session_scan.jpg)
 In this screenshot, multiple reports with error handling.\
@@ -59,7 +77,7 @@ Here with single report
 
 (Some screenshots may not be updated to the latest version)
 
-## BUGS:
+## BUGS / LIMITATIONS:
 Hopefully not too many ;)\
 Text alignment and justification are hardcoded.\
 So with a very long path or with a very long track name,\
@@ -81,11 +99,6 @@ So 3 options here:
 
 Choose your poison ;)
 
-On windows you can check the MD5 hash using 'certutil': 
-```
-C:\> certutil -hashfile aedit.exe MD5\
-```
-MD5 hash available in the win zip file.
 
 ## PERFORMANCE:
 Here on openSUSE TW, with a Ryzen 5700x - 16Mb RAM - ssd\
